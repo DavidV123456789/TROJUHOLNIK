@@ -5,10 +5,10 @@
 
 
 int main() {
-    Bod P;
-    float a=5;
-    float b=3;
-    Bod(a,b);
+
+    float a=6;
+    float b=1;
+    Bod P= Bod(a,b);
     cout<<P.getBod()<<endl;
 
 

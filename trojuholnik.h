@@ -19,22 +19,28 @@ private:
     float x;
     float y;
 public:
-    Bod(); //vypyta x,y
-    Bod(float a); //"a" inicializuje x aj y suradnicu
-    Bod(float a, float  b); // inicializuje x a y
+    Bod():x(0),y(0){}; //vypyta x,y
+    explicit Bod(float a):x(a),y(a){}; //"a" inicializuje x aj y suradnicu
+    Bod(float a, float  b):x(a),y(b){}; // inicializuje x a y
 
-    float getDistance(const Bod&other) const; // nech pocita vzdialenostod pociatku [0,0] aj od druheho bodu pouzi impliccitny parameter
+    float getDistance(const Bod & other = Bod(0, 0)) const; // nech pocita vzdialenostod pociatku [0,0] aj od druheho bodu pouzi impliccitny parameter
     Bod getCenter(const Bod&other) const;   //najde stred medzi dovma bodmi
 
     float getBod() const;
 
     //konstrukcie: vypis bodu [x,y];    sucet bodov;    rozdiel bodov;  bod*cislo;  bod / ciuslo
     Bod operator+(const Bod &other) const;
+    Bod operator-(const Bod &other) const;
     Bod operator/(const Bod &other) const;
+    Bod operator*(const Bod &other) const;
     friend Bod operator*(int c, const Bod &other);
     friend Bod operator/(int c, const Bod &other);
+    //explicit operator float() const; //pretypuje na float [x,y]
 
-
+        //staticka metoda ktora vygeneruje pole n bodov, ktoré potom utrriedi podla vzdialenosti bodu od pociatku
+   static void generujPoleBodov(Bod *pole, int n);
+   //musis dynamicky alokovat pole
+   static void utriedPoleBodov(Bod *pole, int n);
 };
 
 

@@ -2,6 +2,7 @@
 // Created by map on 9. 11. 2021.
 //
 #include "trojuholnik.h"
+/*
 Bod::Bod() {
     float x;
     float y;
@@ -24,7 +25,7 @@ Bod::Bod(float a, float b) {
     this->y=b;
 
 }
-
+*/
 float Bod::getDistance(const Bod &other) const {
 //sqrt((x2-x1)upper2 + (y2-y1)upper2)
     return sqrt(other.x*other.x+other.y*other.y);
@@ -38,7 +39,7 @@ Bod Bod::getCenter(const Bod &other) const {
 }
 
 float Bod::getBod() const {
-    std::cout<<"[,]";
+    std::cout<<(x,y);
     return 0;
 }
 
@@ -73,3 +74,25 @@ Bod operator/(int c, const Bod &other) {
 
     return N;
 }
+
+Bod Bod::operator*(const Bod &other) const {
+    return Bod();
+}
+
+Bod Bod::operator-(const Bod &other) const {
+    return Bod();
+}
+
+void Bod::generujPoleBodov(Bod *pole, int n) {
+    std::srand(time(0));
+    for(int i=0;i<n;i++)
+    {
+        (pole+i)->x=std::rand()% 99 + 1;
+        (pole+i)->y=std::rand()% 99 + 1;
+    }
+}
+
+void Bod::utriedPoleBodov(Bod *pole, int n) {
+    qsort((Bod *)pole,n,sizeof(getDistance),cmp);
+}
+
