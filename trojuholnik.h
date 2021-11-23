@@ -19,28 +19,30 @@ private:
     float x;
     float y;
 public:
-    Bod():x(0),y(0){}; //vypyta x,y
-    explicit Bod(float a):x(a),y(a){}; //"a" inicializuje x aj y suradnicu
-    Bod(float a, float  b):x(a),y(b){}; // inicializuje x a y
+    Bod():x(0),y(0){};
+    explicit Bod(float a):x(a),y(a){};
+    Bod(float a,float b):x(a),y(b){};
+    float getDistance(const Bod & other = Bod(0,0) ) const;
 
-    float getDistance(const Bod & other = Bod(0, 0)) const; // nech pocita vzdialenostod pociatku [0,0] aj od druheho bodu pouzi impliccitny parameter
-    Bod getCenter(const Bod&other) const;   //najde stred medzi dovma bodmi
+    Bod getCenter(const Bod & other) const;
+    Bod operator+(const Bod & other) const;
+    Bod operator-(const Bod & other) const;
+    Bod operator/(float k) const;
+    Bod operator*(float k) const;
+    bool operator<(const Bod & other);
+    bool operator>(const Bod & other);
+    Bod operator^(const Bod & other) const; //pretazeny operator strieska na vypocet stredu usecky
+    explicit operator float() const;  //pretazeny operator konverzie na float, ktory vrati vzdialenost od [0,0]
+    //inicializacia generatorov cisel
+    friend Bod operator*(float k, const Bod &other);
+    friend std::ostream & operator<<(std::ostream & os,const Bod &other);
+    //staticka metoda ktora vygeneruje pole bodov zadaneho poctu a utriedi ho podla vzdialenosti bodu od pociatku
 
-    float getBod() const;
-
-    //konstrukcie: vypis bodu [x,y];    sucet bodov;    rozdiel bodov;  bod*cislo;  bod / ciuslo
-    Bod operator+(const Bod &other) const;
-    Bod operator-(const Bod &other) const;
-    Bod operator/(const Bod &other) const;
-    Bod operator*(const Bod &other) const;
-    friend Bod operator*(int c, const Bod &other);
-    friend Bod operator/(int c, const Bod &other);
-    //explicit operator float() const; //pretypuje na float [x,y]
-
-        //staticka metoda ktora vygeneruje pole n bodov, ktoré potom utrriedi podla vzdialenosti bodu od pociatku
-   static void generujPoleBodov(Bod *pole, int n);
-   //musis dynamicky alokovat pole
-   static void utriedPoleBodov(Bod *pole, int n);
+    static Bod * generujPoleBodov(int pocetBodov);
+    static void vypisPoleBodov(int pocetBodov,Bod *poleBodov);
+    static int cmp(const void *prvy,const void *druhy);
+    static int generujInt(int min, int max);
+    static float generujFloat(float min, float max);
 };
 
 
