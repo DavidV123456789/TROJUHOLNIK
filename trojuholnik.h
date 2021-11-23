@@ -10,9 +10,20 @@
 #include <fstream>
 #include <cmath>
 
-using std::endl;
-using std::cin;
-using std::cout;
+namespace alpha{
+    using std::endl;
+    using std::cin;
+    using std::cout;
+}
+namespace beta{
+    using std::setfill;
+    using std::setw;
+    using std::setprecision;
+    using std::right;
+    using std::left;
+    using std::showpos;
+    using std::noshowpos;
+}
 
 class Bod{
 private:
@@ -44,7 +55,29 @@ public:
     static int generujInt(int min, int max);
     static float generujFloat(float min, float max);
 };
+//alias
+using Vektor = Bod; //aby sme mohli pouzivat vektor namiesto vtedy, ked to je vhodne a bolo vidiet presne co robime
 
+
+class Priamka{
+private:
+    Bod X;
+    Bod Y;
+public:
+    //
+    Priamka(){};//Priamka():X({0 , 0}),Y({0,0}){};-funguje bez toho
+    explicit Priamka(Bod Z):X(Z),Y(Z){};
+    Priamka(Bod Z, Bod W):X(Z),Y(W){};
+    friend std::ostream &operator<<(std::ostream &os, const Priamka & other);
+    Bod getCenter() const;
+    float  getDlzka() const;
+    Vektor getsmerovy() const;
+    Vektor getNormalovy() const;//kolmý vektor na smerový
+    Priamka getOsStrany() const;
+
+
+
+};
 
 
 

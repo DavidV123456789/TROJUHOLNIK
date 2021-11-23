@@ -2,6 +2,8 @@
 // Created by map on 9. 11. 2021.
 //
 #include "trojuholnik.h"
+using namespace alpha;
+
 /*
 Bod::Bod() {
     float x;
@@ -13,17 +15,13 @@ Bod::Bod() {
     this->x=x;
     this->y=y;
 }
-
 Bod::Bod(float a) {
     this->x=a;
     this->y=a;
-
 }
-
 Bod::Bod(float a, float b) {
     this->x=a;
     this->y=b;
-
 }
 */
 /*
@@ -31,59 +29,46 @@ float Bod::getDistance(const Bod &other) const {
 //sqrt((x2-x1)upper2 + (y2-y1)upper2)
     return sqrt(other.x*other.x+other.y*other.y);
 }
-
 Bod Bod::getCenter(const Bod &other) const {
     Bod N;
     N.x=(this->x+other.x)/2;
     N.y=(this->y+other.y)/2;
     return N;
 }
-
 float Bod::getBod() const {
     std::cout<<(x,y);
     return 0;
 }
-
 Bod Bod::operator+(const Bod &other) const {
     Bod N;
     N.x=this->x+other.x;
     N.y=this->y+other.y;
-
     return N;
 }
-
 Bod Bod::operator/(const Bod &other) const {
     Bod N;
     N.x=this->x+other.x;
     N.y=this->y+other.y;
-
     return N;
 }
-
 Bod operator*(int c, const Bod &other) {
     Bod N;
     N.x=other.x*c;
     N.y=other.y*c;
-
     return N;
 }
-
 Bod operator/(int c, const Bod &other) {
     Bod N;
     N.x=other.x/c;
     N.y=other.y/c;
-
     return N;
 }
-
 Bod Bod::operator*(const Bod &other) const {
     return Bod();
 }
-
 Bod Bod::operator-(const Bod &other) const {
     return Bod();
 }
-
 void Bod::generujPoleBodov(Bod *pole, int n) {
     std::srand(time(0));
     for(int i=0;i<n;i++)
@@ -92,7 +77,6 @@ void Bod::generujPoleBodov(Bod *pole, int n) {
         (pole+i)->y=std::rand()% 99 + 1;
     }
 }
-
 void Bod::utriedPoleBodov(Bod *pole, int n) {
     qsort((Bod *)pole,n,sizeof(getDistance),cmp);
 }
@@ -211,4 +195,32 @@ float Bod::generujFloat(float min, float max)
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(min,max);
     return dis(gen) ;
+}
+
+std::ostream &operator<<(std::ostream &os, const Priamka &other) {
+    return <#initializer#>;
+}
+
+Bod Priamka::getCenter() const {
+    return {((Y-X)/2)+X};
+
+}
+
+float Priamka::getDlzka() const {
+    return 0;
+}
+
+Vektor Priamka::getsmerovy() const {
+    Bod Vektor;
+    return Vektor;
+}
+
+Vektor Priamka::getNormalovy() const {
+    Vektor.x=Vektor.y;
+    Vektor.y=(-1)*Vektro.x;
+    return Vektor();
+}
+
+Priamka Priamka::getOsStrany() const {
+    return Priamka();
 }
