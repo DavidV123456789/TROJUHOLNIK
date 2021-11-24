@@ -35,6 +35,9 @@ public:
     Bod(float a,float b):x(a),y(b){};
     float getDistance(const Bod & other = Bod(0,0) ) const;
 
+    getX();
+    getY();
+
     Bod getCenter(const Bod & other) const;
     Bod operator+(const Bod & other) const;
     Bod operator-(const Bod & other) const;
@@ -60,16 +63,16 @@ using Vektor = Bod; //aby sme mohli pouzivat vektor namiesto vtedy, ked to je vh
 
 
 class Priamka{
-private:
+protected:
     Bod X;
-    Bod Y;
+    Bod Y;//aby jej dedicne triedy mohli pouzivat tuto vlastnost
 public:
     //
     Priamka(){};//Priamka():X({0 , 0}),Y({0,0}){};-funguje bez toho
     explicit Priamka(Bod Z):X(Z),Y(Z){};
     Priamka(Bod Z, Bod W):X(Z),Y(W){};
     friend std::ostream &operator<<(std::ostream &os, const Priamka & other);
-    Bod getCenter() const;
+    Bod getStred() const;
     float  getDlzka() const;
     Vektor getsmerovy() const;
     Vektor getNormalovy() const;//kolmý vektor na smerový
@@ -79,6 +82,19 @@ public:
 
 };
 
+class PR: public Priamka{
+private:
+    float koeficienty[4];//koeficienty a1,s1,a2,s2 v rovniciach: x = a1+s1*t;   y=a2+s2*t;
+public:
+    PR():koeficienty{0,0,0,0}{};//ak nezadame nic tak vsetky koeficienty budu 0
+    PR(Bod A, Bod B);//parametrivka priamka urcena dvoma bodmi
+    explicit PR(const Priamka & P);//vyrobi parametricku rovnicu z uz vytvorenej priamky
+    float &operator [](int index) {return  koeficienty[index];};//musime vratit odkaz na float// pretazeny opertor [] pre nekonstantny pristup
+    const float & operator [](int index) const{return koeficienty[index];};// pretazeny opertor [] pre konstantny pristup
+    friend  std::ostream  & operator<<(std::ostream & os, const PR & other);
+    float * getKoeficienty();//vrati pole koeficientov
+    void setKoeficienty();//nastavi koeficienty v parametrckej rovnici na spravne hodnoty
 
+};
 
 #endif //UNTITLED2_TROJUHOLNIK_H

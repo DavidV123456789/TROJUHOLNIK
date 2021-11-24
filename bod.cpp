@@ -198,29 +198,52 @@ float Bod::generujFloat(float min, float max)
 }
 
 std::ostream &operator<<(std::ostream &os, const Priamka &other) {
-    return <#initializer#>;
+    return ;
 }
 
-Bod Priamka::getCenter() const {
-    return {((Y-X)/2)+X};
-
+Bod Priamka::getStred() const {//refaktorovanie, pri zmene názvu funkcie zmení názov danej funkcie v celom kóde
+    return X.getCenter(Y);
+    //return X^Y;
 }
 
 float Priamka::getDlzka() const {
-    return 0;
+    return X.getDistance(Y);
 }
 
 Vektor Priamka::getsmerovy() const {
-    Bod Vektor;
-    return Vektor;
+
+    return Y-X;
 }
 
 Vektor Priamka::getNormalovy() const {
-    Vektor.x=Vektor.y;
-    Vektor.y=(-1)*Vektro.x;
-    return Vektor();
+    Vektor smerovy = getsmerovy()
+    return { smerovy.getY()*(-1),smerovy.getX };
+    //getery?
 }
 
 Priamka Priamka::getOsStrany() const {
-    return Priamka();
+    Bod stred = getStred();
+    return {stred, stred+getNormalovy()};
+}
+//Je potrebné optimalozovať program tak aby sa funkcia vyvolávala čo najmenej krát
+PR::PR(Bod A, Bod B) : Priamka(A, B) {
+
+}
+
+PR::PR(const Priamka &P) {
+
+}
+
+void PR::setKoeficienty() {
+
+}
+
+float *PR::getKoeficienty() {
+    return koeficienty;
+}
+
+std::ostream &operator<<(std::ostream &os, const PR &other) {
+    cout<<"Parametricka rovnica:"<<std::endl;
+    cout<<"x= "<<other.koeficienty[0]<<"+"<<koeficienty[2]<<"*t"<<std::endl;
+    cout<<"x= "<<koeficienty[1]<<"+"<<koeficienty[3]<<"*t"<<std::endl;
 }
